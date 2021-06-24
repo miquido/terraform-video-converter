@@ -34,30 +34,25 @@ variable "tags" {
 
 variable "execute-api-arn" {
   type        = string
-  default     = {}
   description = "arn:aws:execute-api:var.aws_region:var.aws_used_account_no:*"
 }
 
 variable "mediaconvert-arn" {
   type        = string
-  default     = {}
   description = "arn:aws:mediaconvert:var.aws_region:var.aws_used_account_no:*"
 }
 
 variable "submit-lambda-notification-webhook" {
   type        = string
-  default     = {}
   description = "endpoint for notification about errors"
 }
 
 variable "complete-lambda-notification-webhook" {
   type        = string
-  default     = {}
   description = "endpoint for notification about conversion process"
 }
 
 variable "mediaconvert-endpoint" {
   type        = string
-  default     = {}
   description = "your media convert endpoint"
 }

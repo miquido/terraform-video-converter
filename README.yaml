@@ -26,6 +26,7 @@ usage: |-
 
       execute-api-arn                       = "arn:aws:execute-api:${var.aws_region}:${var.aws_used_account_no}:*"
       mediaconvert-arn                      = "arn:aws:mediaconvert:${var.aws_region}:${var.aws_used_account_no}:*"
+      mediaconvert-endpoint                 = "https://yk2lhke4b.mediaconvert.eu-central-1.amazonaws.com"
       submit-lambda-notification-webhook    = "https://cf74a368e3b9e2b4c8fbcfeee8770dde.m.pipedream.net"
       complete-lambda-notification-webhook  = "https://cf74a368e3b9e2b4c8fbcfeee8770dde.m.pipedream.net"
     }
