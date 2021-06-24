@@ -1,0 +1,37 @@
+name: terraform-video-converter
+gitlab_repo: miquido/terraform/terraform-video-converter
+badges: []
+related: []
+description: |-
+  A solution that will generate adaptive streaming urls for videos uploaded to video-source bucket.
+  After conversion, videos will be available under
+  module.video-cdn.cf_domain_name/file_name/protocol/file_name.protocol_extension
+  ex. https://playground-test-video.s3.eu-central-1.amazonaws.com/IMG_6326.mov/AppleHLS1/IMG_6326.m3u8
+  Also there will be notifications send on endpoint under vars submit-lambda-notification-webhook and
+  complete-lambda-notification-webhook.
+
+  By default the solution will make 3 types of conversion: HLS, DASHIS and mp4. This can be changed by
+  modifiying video-source/converter-config-1/job-settings.json file.
+
+  Files should be uploaded to video-source/converter-config-1 and only .mp4, .mpg, .m4v, .mov, .m2ts
+  are supported (case sensitive)
+
+usage: |-
+  ```hcl
+    module "jazzed-mailchimp-sync-lambda" {
+      source              = "git::ssh://git@gitlab.com/miquido/terraform/terraform-video-converter"
+      name                = "video-streaming"
+      stage               = var.environment
+      namespace           = var.aws_project_name
+      tags                = var.default_tags
+
+      execute-api-arn                       = arn:aws:execute-api:${var.aws_region}:${var.aws_used_account_no}:*
+      mediaconvert-arn                      = arn:aws:mediaconvert:${var.aws_region}:${var.aws_used_account_no}:*
+      submit-lambda-notification-webhook    = "https://cf74a368e3b9e2b4c8fbcfeee8770dde.m.pipedream.net"
+      complete-lambda-notification-webhook  = "https://cf74a368e3b9e2b4c8fbcfeee8770dde.m.pipedream.net"
+    }
+  ```
+
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
