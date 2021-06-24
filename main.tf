@@ -17,27 +17,27 @@ resource "aws_iam_role" "media-convert-execute-role" {
   inline_policy {
     name = "media-convert-execute-role"
     policy = jsonencode(
-    {
-      Statement = [
-        {
-          Action = [
-            "s3:GetObject",
-            "s3:PutObject",
-          ]
-          Effect = "Allow"
-          Resource = [
-            "${module.video-source.bucket_arn}/*",
-            "${module.video-cdn.s3_bucket_arn}/*",
-          ]
-        },
-        {
-          Action   = "execute-api:Invoke"
-          Effect   = "Allow"
-          Resource = var.execute-api-arn
-        },
-      ]
-      Version = "2012-10-17"
-    }
+      {
+        Statement = [
+          {
+            Action = [
+              "s3:GetObject",
+              "s3:PutObject",
+            ]
+            Effect = "Allow"
+            Resource = [
+              "${module.video-source.bucket_arn}/*",
+              "${module.video-cdn.s3_bucket_arn}/*",
+            ]
+          },
+          {
+            Action   = "execute-api:Invoke"
+            Effect   = "Allow"
+            Resource = var.execute-api-arn
+          },
+        ]
+        Version = "2012-10-17"
+      }
     )
   }
 
