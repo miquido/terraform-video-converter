@@ -18,15 +18,15 @@ description: |-
 
 usage: |-
   ```hcl
-    module "jazzed-mailchimp-sync-lambda" {
+    module "video-streaming" {
       source              = "git::ssh://git@gitlab.com/miquido/terraform/terraform-video-converter"
       name                = "video-streaming"
       stage               = var.environment
       namespace           = var.aws_project_name
       tags                = var.default_tags
 
-      execute-api-arn                       = arn:aws:execute-api:${var.aws_region}:${var.aws_used_account_no}:*
-      mediaconvert-arn                      = arn:aws:mediaconvert:${var.aws_region}:${var.aws_used_account_no}:*
+      execute-api-arn                       = "arn:aws:execute-api:${var.aws_region}:${var.aws_used_account_no}:*"
+      mediaconvert-arn                      = "arn:aws:mediaconvert:${var.aws_region}:${var.aws_used_account_no}:*"
       submit-lambda-notification-webhook    = "https://cf74a368e3b9e2b4c8fbcfeee8770dde.m.pipedream.net"
       complete-lambda-notification-webhook  = "https://cf74a368e3b9e2b4c8fbcfeee8770dde.m.pipedream.net"
     }
