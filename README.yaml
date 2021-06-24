@@ -23,7 +23,6 @@ usage: |-
       name                = "video-streaming"
       stage               = var.environment
       namespace           = var.aws_project_name
-      tags                = var.default_tags
 
       execute-api-arn                       = "arn:aws:execute-api:${var.aws_region}:${var.aws_used_account_no}:*"
       mediaconvert-arn                      = "arn:aws:mediaconvert:${var.aws_region}:${var.aws_used_account_no}:*"

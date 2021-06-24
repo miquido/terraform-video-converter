@@ -33,31 +33,31 @@ variable "tags" {
 }
 
 variable "execute-api-arn" {
-  type        = map(string)
+  type        = string
   default     = {}
   description = "arn:aws:execute-api:var.aws_region:var.aws_used_account_no:*"
 }
 
 variable "mediaconvert-arn" {
-  type        = map(string)
+  type        = string
   default     = {}
   description = "arn:aws:mediaconvert:var.aws_region:var.aws_used_account_no:*"
 }
 
 variable "submit-lambda-notification-webhook" {
-  type        = map(string)
+  type        = string
   default     = {}
   description = "endpoint for notification about errors"
 }
 
 variable "complete-lambda-notification-webhook" {
-  type        = map(string)
+  type        = string
   default     = {}
   description = "endpoint for notification about conversion process"
 }
 
 variable "mediaconvert-endpoint" {
-  type        = map(string)
+  type        = string
   default     = {}
   description = "your media convert endpoint"
 }
