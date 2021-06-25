@@ -24,9 +24,10 @@ resource "aws_lambda_function" "video-conversion-complete" {
 }
 
 data "archive_file" "complete-lambda-archive" {
-  type        = "zip"
-  source_dir  = "${path.module}/job-complete-lambda"
-  output_path = local.complete_lambda_zip_filename
+  type             = "zip"
+  source_dir       = "${path.module}/job-complete-lambda"
+  output_path      = local.complete_lambda_zip_filename
+  output_file_mode = "0755"
 }
 
 resource "aws_iam_role" "video-conversion-complete-lambda-role" {
