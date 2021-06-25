@@ -32,14 +32,14 @@ variable "tags" {
   description = "Additional tags (e.g. `map('BusinessUnit','XYZ')`"
 }
 
-variable "execute-api-arn" {
+variable "aws_region" {
   type        = string
-  description = "arn:aws:execute-api:var.aws_region:var.aws_used_account_no:*"
+  description = "AWS Region"
 }
 
-variable "mediaconvert-arn" {
+variable "aws_used_account_no" {
   type        = string
-  description = "arn:aws:mediaconvert:var.aws_region:var.aws_used_account_no:*"
+  description = "AWS Organization Account number used to assume role on"
 }
 
 variable "submit-lambda-notification-webhook" {

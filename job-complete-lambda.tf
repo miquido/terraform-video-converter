@@ -1,11 +1,10 @@
 locals {
-  complete_lambda_function_name        = "video-conversion-complete"
   complete_lambda_zip_filename         = "${path.module}/complete-lambda.zip"
   complete_lambda_notification_webhook = var.complete-lambda-notification-webhook
 }
 
 resource "aws_lambda_function" "video-conversion-complete" {
-  function_name = local.complete_lambda_function_name
+  function_name = "${module.label.namespace}_${module.label.stage}_video-conversion-complete"
   tags          = module.label.tags
 
   filename         = local.complete_lambda_zip_filename
@@ -31,7 +30,7 @@ data "archive_file" "complete-lambda-archive" {
 }
 
 resource "aws_iam_role" "video-conversion-complete-lambda-role" {
-  name                = local.complete_lambda_function_name
+  name                = "${module.label.namespace}_${module.label.stage}_video-conversion-complete_role"
   assume_role_policy  = data.aws_iam_policy_document.assume_role.json
   tags                = module.label.tags
   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
@@ -44,7 +43,7 @@ resource "aws_iam_role" "video-conversion-complete-lambda-role" {
           {
             Action   = "mediaconvert:GetJob"
             Effect   = "Allow"
-            Resource = var.mediaconvert-arn
+            Resource = "arn:aws:mediaconvert:${var.aws_region}:${var.aws_used_account_no}:*"
           },
         ]
         Version = "2012-10-17"
@@ -54,7 +53,7 @@ resource "aws_iam_role" "video-conversion-complete-lambda-role" {
 }
 
 resource "aws_cloudwatch_event_rule" "complete_lambda_event_rule" {
-  name        = "complete_lambda_event_rule"
+  name        = "${module.label.namespace}_${module.label.stage}_video-conversion-complete_event_rule"
   description = "complete_lambda_event_rule"
   tags        = module.label.tags
 
@@ -76,7 +75,7 @@ resource "aws_cloudwatch_event_rule" "complete_lambda_event_rule" {
 }
 
 resource "aws_cloudwatch_event_target" "default" {
-  target_id = local.complete_lambda_function_name
+  target_id = aws_lambda_function.video-conversion-complete.function_name
   rule      = aws_cloudwatch_event_rule.complete_lambda_event_rule.name
   arn       = aws_lambda_function.video-conversion-complete.arn
 }

@@ -1,12 +1,11 @@
 locals {
-  submit_lambda_function_name        = "video-conversion-submit"
   submit_lambda_zip_filename         = "${path.module}/submit-lambda.zip"
   submit_lambda_notification_webhook = var.submit-lambda-notification-webhook
   mediaconvert_endpoint              = var.mediaconvert-endpoint
 }
 
 resource "aws_lambda_function" "video-conversion-submit" {
-  function_name = local.submit_lambda_function_name
+  function_name = "${module.label.namespace}_${module.label.stage}_video-conversion-submit"
   tags          = module.label.tags
 
   filename         = local.submit_lambda_zip_filename
@@ -34,7 +33,7 @@ data "archive_file" "lambda" {
 }
 
 resource "aws_iam_role" "video-conversion-submit-lambda-role" {
-  name                = local.submit_lambda_function_name
+  name                = "${module.label.namespace}_${module.label.stage}_video-conversion-submit_role"
   assume_role_policy  = data.aws_iam_policy_document.assume_role.json
   tags                = module.label.tags
   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
@@ -52,7 +51,7 @@ resource "aws_iam_role" "video-conversion-submit-lambda-role" {
           {
             Action   = "mediaconvert:CreateJob"
             Effect   = "Allow"
-            Resource = var.mediaconvert-arn
+            Resource = "arn:aws:mediaconvert:${var.aws_region}:${var.aws_used_account_no}:*"
           },
           {
             Action = "s3:GetObject"

@@ -10,7 +10,7 @@ module "label" {
 }
 
 resource "aws_iam_role" "media-convert-execute-role" {
-  name               = "media-convert-execute-role"
+  name               = "${module.label.namespace}_${module.label.stage}_media-convert-execute_role"
   assume_role_policy = data.aws_iam_policy_document.media-convert-execute-assume_role.json
   tags               = module.label.tags
 
@@ -33,7 +33,7 @@ resource "aws_iam_role" "media-convert-execute-role" {
           {
             Action   = "execute-api:Invoke"
             Effect   = "Allow"
-            Resource = var.execute-api-arn
+            Resource = "arn:aws:execute-api:${var.aws_region}:${var.aws_used_account_no}:*"
           },
         ]
         Version = "2012-10-17"

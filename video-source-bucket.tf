@@ -6,8 +6,8 @@ module "video-source" {
 
   source             = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=tags/0.38.0"
   enabled            = true
-  user_enabled       = true
-  versioning_enabled = false
+  user_enabled       = false
+  versioning_enabled = true
   acl                = "private"
   sse_algorithm      = "AES256"
 }
