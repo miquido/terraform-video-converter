@@ -14,15 +14,14 @@ module "video-cdn" {
 
   allowed_methods        = ["GET", "HEAD"]
   encryption_enabled     = true
-  price_class            = "PriceClass_100"
+  price_class            = var.cloudfront_price_class
   viewer_protocol_policy = "redirect-to-https"
   origin_force_destroy   = true
   compress               = true
   website_enabled        = false
-  forward_query_string   = true
+  forward_query_string   = false
   forward_cookies        = "none"
   min_ttl                = "604800" //7 days
   default_ttl            = "604800" //7 days
   forward_header_values  = []
 }
-

@@ -47,6 +47,7 @@
 | <a name="input_attributes"></a> [attributes](#input\_attributes) | Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS Region | `string` | n/a | yes |
 | <a name="input_aws_used_account_no"></a> [aws\_used\_account\_no](#input\_aws\_used\_account\_no) | AWS Organization Account number used to assume role on | `string` | n/a | yes |
+| <a name="input_cloudfront_price_class"></a> [cloudfront\_price\_class](#input\_cloudfront\_price\_class) | Price class for video cloudfront distribution: `PriceClass_All`, `PriceClass_200`, `PriceClass_100` | `string` | `"PriceClass_100"` | no |
 | <a name="input_complete-lambda-notification-webhook"></a> [complete-lambda-notification-webhook](#input\_complete-lambda-notification-webhook) | endpoint for notification about conversion process | `string` | n/a | yes |
 | <a name="input_delimiter"></a> [delimiter](#input\_delimiter) | Delimiter to be used between `namespace`, `stage`, `name` and `attributes` | `string` | `"-"` | no |
 | <a name="input_mediaconvert-endpoint"></a> [mediaconvert-endpoint](#input\_mediaconvert-endpoint) | your media convert endpoint | `string` | n/a | yes |

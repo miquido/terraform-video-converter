@@ -56,3 +56,9 @@ variable "mediaconvert-endpoint" {
   type        = string
   description = "your media convert endpoint"
 }
+
+variable "cloudfront_price_class" {
+  type        = string
+  default     = "PriceClass_100"
+  description = "Price class for video cloudfront distribution: `PriceClass_All`, `PriceClass_200`, `PriceClass_100`"
+}
