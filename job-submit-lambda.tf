@@ -5,7 +5,7 @@ locals {
 }
 
 resource "aws_lambda_function" "video-conversion-submit" {
-  function_name = "${module.label.namespace}_${module.label.stage}_video-conversion-submit"
+  function_name = "${module.label.namespace}-${module.label.stage}-video-conversion-submit"
   tags          = module.label.tags
 
   filename         = local.submit_lambda_zip_filename
@@ -34,13 +34,13 @@ data "archive_file" "lambda" {
 }
 
 resource "aws_iam_role" "video-conversion-submit-lambda-role" {
-  name                = "${module.label.namespace}_${module.label.stage}_video-conversion-submit_role"
+  name                = "${module.label.namespace}-${module.label.stage}-video-conversion-submit-role"
   assume_role_policy  = data.aws_iam_policy_document.assume_role.json
   tags                = module.label.tags
   managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
 
   inline_policy {
-    name = "jobSubmitServiceRoleDefaultPolicyEC39C00E"
+    name = "jobSubmitServiceRoleDefaultPolicy"
     policy = jsonencode(
       {
         Statement = [

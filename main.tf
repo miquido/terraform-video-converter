@@ -10,7 +10,7 @@ module "label" {
 }
 
 resource "aws_iam_role" "media-convert-execute-role" {
-  name               = "${module.label.namespace}_${module.label.stage}_media-convert-execute_role"
+  name               = "${module.label.namespace}-${module.label.stage}-media-convert-execute-role"
   assume_role_policy = data.aws_iam_policy_document.media-convert-execute-assume_role.json
   tags               = module.label.tags
 
