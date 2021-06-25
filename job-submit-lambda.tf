@@ -27,9 +27,10 @@ resource "aws_lambda_function" "video-conversion-submit" {
 }
 
 data "archive_file" "lambda" {
-  type        = "zip"
-  source_dir  = "${path.module}/job-submit-lambda"
-  output_path = local.submit_lambda_zip_filename
+  type             = "zip"
+  source_dir       = "${path.module}/job-submit-lambda"
+  output_path      = local.submit_lambda_zip_filename
+  output_file_mode = "0755"
 }
 
 resource "aws_iam_role" "video-conversion-submit-lambda-role" {
