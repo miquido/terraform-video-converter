@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "video-streaming" {
-  source    = "git::ssh://git@gitlab.com/miquido/terraform/terraform-video-converter"
+  source    = "../.."
   name      = "video-streaming"
   stage     = "test"
   namespace = "test"
