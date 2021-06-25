@@ -54,8 +54,8 @@ resource "aws_iam_role" "video-conversion-complete-lambda-role" {
 }
 
 resource "aws_cloudwatch_event_rule" "complete_lambda_event_rule" {
-  name        = "${module.label.namespace}-${module.label.stage}-video-conversion-complete-event-rule"
-  tags        = module.label.tags
+  name = "${module.label.namespace}-${module.label.stage}-video-conversion-complete-event-rule"
+  tags = module.label.tags
 
   event_pattern = jsonencode(
     {
