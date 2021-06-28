@@ -62,3 +62,21 @@ variable "cloudfront_price_class" {
   default     = "PriceClass_100"
   description = "Price class for video cloudfront distribution: `PriceClass_All`, `PriceClass_200`, `PriceClass_100`"
 }
+
+variable "dns_alias_enabled" {
+  type        = bool
+  default     = false
+  description = "Create a DNS alias for the CDN. Requires `parent_zone_id` or `parent_zone_name`"
+}
+
+variable "parent_zone_id" {
+  type        = string
+  default     = ""
+  description = "ID of the hosted zone to contain this record (or specify `parent_zone_name`). Requires `dns_alias_enabled` set to true"
+}
+
+variable "acm_certificate_arn" {
+  type        = string
+  description = "Existing ACM Certificate ARN"
+  default     = ""
+}

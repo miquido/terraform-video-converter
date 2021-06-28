@@ -7,10 +7,9 @@ module "video-cdn" {
   tags                    = module.label.tags
   extra_origin_attributes = [""]
 
-  dns_alias_enabled = false
-  //  dns_alias_enabled        = true
-  //  parent_zone_id           = aws_route53_zone.primary.zone_id
-  //  acm_certificate_arn = module.acm_cdn.arn
+  dns_alias_enabled   = var.dns_alias_enabled
+  parent_zone_id      = var.parent_zone_id
+  acm_certificate_arn = var.acm_certificate_arn
 
   allowed_methods        = ["GET", "HEAD"]
   encryption_enabled     = true
