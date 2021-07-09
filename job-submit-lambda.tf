@@ -80,3 +80,12 @@ data "aws_iam_policy_document" "assume_role" {
     }
   }
 }
+
+resource "aws_lambda_permission" "s3_notification" {
+  statement_id   = "AllowExecutionS3Notification"
+  action         = "lambda:InvokeFunction"
+  function_name  = aws_lambda_function.video-conversion-submit.arn
+  principal      = "s3.amazonaws.com"
+  source_account = var.aws_used_account_no
+  source_arn     = module.video-source.bucket_arn
+}
