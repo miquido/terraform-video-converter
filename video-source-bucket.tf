@@ -14,10 +14,10 @@ module "video-source" {
 
 resource "aws_s3_bucket_object" "converter-config" {
   bucket                 = module.video-source.bucket_id
-  for_each               = fileset("video-source-bucket/", "**")
+  for_each               = fileset("${path.module}/video-source-bucket/", "**")
   key                    = each.value
-  source                 = "video-source-bucket/${each.value}"
-  etag                   = filemd5("video-source-bucket/${each.value}")
+  source                 = "${path.module}/video-source-bucket/${each.value}"
+  etag                   = filemd5("${path.module}/video-source-bucket/${each.value}")
   acl                    = "private"
   server_side_encryption = "AES256"
 }
