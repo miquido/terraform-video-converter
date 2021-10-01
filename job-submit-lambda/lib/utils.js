@@ -3,7 +3,7 @@
  *  SPDX-License-Identifier: Apache-2.0
  */
 const AWS = require('aws-sdk');
-const https = require('https');
+const axios = require('axios');
 
 /**
  * Download Job Settings from s3 and run a basic validationvalidate
