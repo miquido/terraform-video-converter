@@ -69,6 +69,12 @@ variable "dns_alias_enabled" {
   description = "Create a DNS alias for the CDN. Requires `parent_zone_id` or `parent_zone_name`"
 }
 
+variable "dns_alias_name" {
+  type        = string
+  default     = false
+  description = "Create a DNS alias for the CDN"
+}
+
 variable "parent_zone_id" {
   type        = string
   default     = ""

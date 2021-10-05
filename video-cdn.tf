@@ -7,6 +7,7 @@ module "video-cdn" {
   tags                    = module.label.tags
   extra_origin_attributes = [""]
 
+  aliases             = [var.dns_alias_name]
   dns_alias_enabled   = var.dns_alias_enabled
   parent_zone_id      = var.parent_zone_id
   acm_certificate_arn = var.acm_certificate_arn
