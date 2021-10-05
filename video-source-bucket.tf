@@ -26,42 +26,10 @@ resource "aws_s3_bucket_notification" "new_video" {
   bucket = module.video-source.bucket_id
 
   lambda_function {
-    id                  = "new_mp4_video"
+    id                  = "new_file"
     lambda_function_arn = aws_lambda_function.video-conversion-submit.arn
     events              = ["s3:ObjectCreated:*"]
     filter_prefix       = ""
-    filter_suffix       = ".mp4"
-  }
-
-  lambda_function {
-    id                  = "new_mpg_video"
-    lambda_function_arn = aws_lambda_function.video-conversion-submit.arn
-    events              = ["s3:ObjectCreated:*"]
-    filter_prefix       = ""
-    filter_suffix       = ".mpg"
-  }
-
-  lambda_function {
-    id                  = "new_m4v_video"
-    lambda_function_arn = aws_lambda_function.video-conversion-submit.arn
-    events              = ["s3:ObjectCreated:*"]
-    filter_prefix       = ""
-    filter_suffix       = ".m4v"
-  }
-
-  lambda_function {
-    id                  = "new_mov_video"
-    lambda_function_arn = aws_lambda_function.video-conversion-submit.arn
-    events              = ["s3:ObjectCreated:*"]
-    filter_prefix       = ""
-    filter_suffix       = ".mov"
-  }
-
-  lambda_function {
-    id                  = "new_m2ts_video"
-    lambda_function_arn = aws_lambda_function.video-conversion-submit.arn
-    events              = ["s3:ObjectCreated:*"]
-    filter_prefix       = ""
-    filter_suffix       = ".m2ts"
+    filter_suffix       = ""
   }
 }
