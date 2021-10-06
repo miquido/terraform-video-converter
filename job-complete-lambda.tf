@@ -42,9 +42,12 @@ resource "aws_iam_role" "video-conversion-complete-lambda-role" {
       {
         Statement = [
           {
-            Action   = "mediaconvert:GetJob"
-            Effect   = "Allow"
-            Resource = "arn:aws:mediaconvert:${var.aws_region}:${var.aws_used_account_no}:*"
+            Action = ["mediaconvert:GetJob", "s3:DeleteObject"]
+            Effect = "Allow"
+            Resource = [
+              "arn:aws:mediaconvert:${var.aws_region}:${var.aws_used_account_no}:*",
+              "${module.video-source.bucket_arn}/*"
+            ]
           },
         ]
         Version = "2012-10-17"

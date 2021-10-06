@@ -6,7 +6,7 @@ const AWS = require('aws-sdk');
 const axios = require('axios')
 
 /**
- * Ge the Job details from MediaConvert and process the MediaConvert output details 
+ * Ge the Job details from MediaConvert and process the MediaConvert output details
  * from Cloudwatch
 */
 const processJobDetails = async (endpoint,cloudfrontUrl,data) => {
@@ -16,10 +16,10 @@ const processJobDetails = async (endpoint,cloudfrontUrl,data) => {
         endpoint: endpoint
     });
     let jobDetails = {};
-    
+
     try {
         const jobData = await mediaconvert.getJob({ Id: data.detail.jobId }).promise();
-        
+
         jobDetails = {
             Id:data.detail.jobId,
             Job:jobData.Job,
@@ -77,9 +77,18 @@ const sendNotification = async (url, msg) => {
     })
 };
 
+const deleteSourceFile = async (filePath) => {
+    console.log(`Deleting source file: ${filePath}`);
 
+    const pathGroups = filePath.match('s3:\/\/(.+?)\/(.+)');
+    const params = {Bucket: pathGroups[1], Key: pathGroups[2]};
+
+    const result = await new Promise((resolve) => new AWS.S3().deleteObject(params, resolve));
+    console.log(JSON.stringify(result));
+};
 
 module.exports = {
     processJobDetails:processJobDetails,
-    sendNotification:sendNotification
+    sendNotification:sendNotification,
+    deleteSourceFile:deleteSourceFile
 };

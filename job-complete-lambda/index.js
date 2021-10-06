@@ -26,6 +26,7 @@ exports.handler = async (event) => {
                      */
                     const jobDetails = await utils.processJobDetails(MEDIACONVERT_ENDPOINT,CLOUDFRONT_DOMAIN,event);
                     await utils.sendNotification(NOTIFICATION_WEBHOOK, jobDetails);
+                    await utils.deleteSourceFile(jobDetails.Job.Settings.Inputs[0].FileInput);
                 } catch (err) {
                     throw err;
                 }
