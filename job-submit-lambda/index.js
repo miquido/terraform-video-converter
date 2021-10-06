@@ -22,12 +22,15 @@ exports.handler = async (event,context) => {
         console.log(event);
         const srcVideo = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, " "));
         const srcBucket = decodeURIComponent(event.Records[0].s3.bucket.name);
-        const settingsFile = `${srcVideo.split("/")[0]}/${JOB_SETTINGS}`;
-        const guid = `${srcVideo.split("/")[1]}`;
+        const srcVideoPathArray = srcVideo.split("/");
+        const settingsFile = `${srcVideoPathArray[0]}/${JOB_SETTINGS}`;
+        const guid = srcVideoPathArray[1];
+        const filename = srcVideoPathArray[srcVideoPathArray.length - 1];
         const inputPath = `s3://${srcBucket}/${srcVideo}`;
-        const outputPath = `s3://${DESTINATION_BUCKET}/${guid}`;
+        const outputPath = `s3://${DESTINATION_BUCKET}/${srcVideo}`;
         const metaData = {
-            Guid:guid
+            Guid: guid,
+            Filename: filename
         };
         /**
          * download and validate settings
