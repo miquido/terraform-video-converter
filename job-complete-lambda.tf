@@ -16,9 +16,10 @@ resource "aws_lambda_function" "video-conversion-complete" {
 
   environment {
     variables = {
-      "MEDIACONVERT_ENDPOINT" = local.mediaconvert_endpoint
-      "CLOUDFRONT_DOMAIN"     = module.video-cdn.cf_domain_name
-      "NOTIFICATION_WEBHOOK"  = local.complete_lambda_notification_webhook
+      "MEDIACONVERT_ENDPOINT"    = local.mediaconvert_endpoint
+      "CLOUDFRONT_DOMAIN"        = module.video-cdn.cf_domain_name
+      "NOTIFICATION_WEBHOOK"     = local.complete_lambda_notification_webhook
+      "NOTIFICATION_AUTH_HEADER" = var.notification-webhook-auth-header
     }
   }
 }

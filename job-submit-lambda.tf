@@ -17,11 +17,12 @@ resource "aws_lambda_function" "video-conversion-submit" {
 
   environment {
     variables = {
-      "DESTINATION_BUCKET"    = module.video-cdn.s3_bucket
-      "JOB_SETTINGS"          = "job-settings.json"
-      "MEDIACONVERT_ENDPOINT" = local.mediaconvert_endpoint
-      "MEDIACONVERT_ROLE"     = aws_iam_role.media-convert-execute-role.arn
-      "NOTIFICATION_WEBHOOK"  = local.submit_lambda_notification_webhook
+      "DESTINATION_BUCKET"       = module.video-cdn.s3_bucket
+      "JOB_SETTINGS"             = "job-settings.json"
+      "MEDIACONVERT_ENDPOINT"    = local.mediaconvert_endpoint
+      "MEDIACONVERT_ROLE"        = aws_iam_role.media-convert-execute-role.arn
+      "NOTIFICATION_WEBHOOK"     = local.submit_lambda_notification_webhook
+      "NOTIFICATION_AUTH_HEADER" = var.notification-webhook-auth-header
     }
   }
 }

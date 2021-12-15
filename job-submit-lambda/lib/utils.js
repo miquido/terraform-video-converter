@@ -4,6 +4,7 @@
  */
 const AWS = require('aws-sdk');
 const axios = require('axios');
+axios.defaults.headers.common['Authorization'] = process.env.NOTIFICATION_AUTH_HEADER;
 
 /**
  * Download Job Settings from s3 and run a basic validationvalidate

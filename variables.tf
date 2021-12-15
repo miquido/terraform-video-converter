@@ -52,6 +52,11 @@ variable "complete-lambda-notification-webhook" {
   description = "endpoint for notification about conversion process"
 }
 
+variable "notification-webhook-auth-header" {
+  type        = string
+  description = "webhook authorization header"
+}
+
 variable "mediaconvert-endpoint" {
   type        = string
   description = "your media convert endpoint"

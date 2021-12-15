@@ -4,11 +4,12 @@
  */
 const AWS = require('aws-sdk');
 const axios = require('axios')
+axios.defaults.headers.common['Authorization'] = process.env.NOTIFICATION_AUTH_HEADER;
 
 /**
  * Ge the Job details from MediaConvert and process the MediaConvert output details
  * from Cloudwatch
-*/
+ */
 const processJobDetails = async (endpoint,cloudfrontUrl,data) => {
     console.log('Processing MediaConvert outputs');
     const buildUrl = (originalValue) => originalValue.slice(5).split('/').splice(1).join('/');
