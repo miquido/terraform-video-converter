@@ -54,6 +54,7 @@ variable "complete-lambda-notification-webhook" {
 
 variable "notification-webhook-auth-header" {
   type        = string
+  default     = ""
   description = "webhook authorization header"
 }
 
