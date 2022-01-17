@@ -4,7 +4,7 @@ module "video-source" {
   namespace = module.label.namespace
   tags      = module.label.tags
 
-  source             = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=0.45.0"
+  source             = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=0.46.0"
   enabled            = true
   user_enabled       = false
   versioning_enabled = true
