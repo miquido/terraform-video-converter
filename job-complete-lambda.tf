@@ -79,8 +79,8 @@ resource "aws_cloudwatch_event_rule" "complete_lambda_event_rule" {
 }
 
 resource "aws_cloudwatch_event_target" "default" {
-  rule      = aws_cloudwatch_event_rule.complete_lambda_event_rule.name
-  arn       = aws_lambda_function.video-conversion-complete.arn
+  rule = aws_cloudwatch_event_rule.complete_lambda_event_rule.name
+  arn  = aws_lambda_function.video-conversion-complete.arn
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_to_invoke_video_complete" {
