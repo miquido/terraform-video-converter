@@ -79,7 +79,14 @@ resource "aws_cloudwatch_event_rule" "complete_lambda_event_rule" {
 }
 
 resource "aws_cloudwatch_event_target" "default" {
-  target_id = aws_lambda_function.video-conversion-complete.function_name
   rule      = aws_cloudwatch_event_rule.complete_lambda_event_rule.name
   arn       = aws_lambda_function.video-conversion-complete.arn
+}
+
+resource "aws_lambda_permission" "allow_cloudwatch_to_invoke_video_complete" {
+  statement_id  = "AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.video-conversion-complete.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.complete_lambda_event_rule.arn
 }
