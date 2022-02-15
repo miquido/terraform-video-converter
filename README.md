@@ -52,22 +52,22 @@ Available targets:
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
 | <a name="requirement_archive"></a> [archive](#requirement\_archive) | >= 2.2.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.41.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 3.41 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_archive"></a> [archive](#provider\_archive) | >= 2.2.0 |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.41.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 3.41 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_label"></a> [label](#module\_label) | git::https://github.com/cloudposse/terraform-terraform-label.git | 0.8.0 |
-| <a name="module_video-cdn"></a> [video-cdn](#module\_video-cdn) | git::https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn.git | 0.79.0 |
-| <a name="module_video-source"></a> [video-source](#module\_video-source) | git::https://github.com/cloudposse/terraform-aws-s3-bucket.git | 0.44.1 |
+| <a name="module_video-cdn"></a> [video-cdn](#module\_video-cdn) | git::https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn.git | 0.82.2 |
+| <a name="module_video-source"></a> [video-source](#module\_video-source) | git::https://github.com/cloudposse/terraform-aws-s3-bucket.git | 0.47.0 |
 
 ## Resources
 
@@ -80,6 +80,7 @@ Available targets:
 | [aws_iam_role.video-conversion-submit-lambda-role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_lambda_function.video-conversion-complete](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) | resource |
 | [aws_lambda_function.video-conversion-submit](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function) | resource |
+| [aws_lambda_permission.allow_cloudwatch_to_invoke_video_complete](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
 | [aws_lambda_permission.s3_notification](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission) | resource |
 | [aws_s3_bucket_notification.new_video](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification) | resource |
 | [aws_s3_bucket_object.converter-config](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object) | resource |
@@ -104,6 +105,7 @@ Available targets:
 | <a name="input_mediaconvert-endpoint"></a> [mediaconvert-endpoint](#input\_mediaconvert-endpoint) | your media convert endpoint | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Solution name, e.g. 'app' or 'cluster' | `string` | `"app"` | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace, which could be your organization name, e.g. 'eg' or 'cp' | `string` | n/a | yes |
+| <a name="input_notification-webhook-auth-header"></a> [notification-webhook-auth-header](#input\_notification-webhook-auth-header) | webhook authorization header | `string` | `""` | no |
 | <a name="input_parent_zone_id"></a> [parent\_zone\_id](#input\_parent\_zone\_id) | ID of the hosted zone to contain this record (or specify `parent_zone_name`). Requires `dns_alias_enabled` set to true | `string` | `""` | no |
 | <a name="input_stage"></a> [stage](#input\_stage) | Stage, e.g. 'prod', 'staging', 'dev', or 'test' | `string` | n/a | yes |
 | <a name="input_submit-lambda-notification-webhook"></a> [submit-lambda-notification-webhook](#input\_submit-lambda-notification-webhook) | endpoint for notification about errors | `string` | n/a | yes |
@@ -133,7 +135,7 @@ No outputs.
 
 ## Copyright
 
-Copyright © 2017-2021 [Miquido](https://miquido.com)
+Copyright © 2017-2022 [Miquido](https://miquido.com)
 
 
 
