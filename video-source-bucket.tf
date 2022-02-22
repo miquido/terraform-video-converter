@@ -33,3 +33,42 @@ resource "aws_s3_bucket_notification" "new_video" {
     filter_suffix       = ""
   }
 }
+
+resource "aws_s3_bucket_public_access_block" "video-source" {
+  bucket                  = module.video-source
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+data "aws_iam_policy_document" "video-s3-iam-policy-user" {
+  statement {
+    actions = [
+      "s3:PutObject",
+      "s3:PutObjectAcl",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:ListBucket",
+      "s3:ListBucketMultipartUploads",
+      "s3:GetBucketLocation",
+      "s3:AbortMultipartUpload",
+    ]
+
+    resources = [
+      "arn:aws:s3:::${module.video-source}/*",
+      "arn:aws:s3:::${module.video-source}",
+    ]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "video-iam-policy" {
+  role       = var.uploading_service_role
+  policy_arn = aws_iam_policy.video-s3-iam-policy-user.arn
+}
+
+resource "aws_iam_policy" "video-s3-iam-policy-user" {
+  name   = "S3-Video-Access"
+  path   = "/"
+  policy = data.aws_iam_policy_document.video-s3-iam-policy-user.json
+}

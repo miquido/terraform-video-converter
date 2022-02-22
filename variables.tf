@@ -92,3 +92,9 @@ variable "acm_certificate_arn" {
   description = "Existing ACM Certificate ARN"
   default     = ""
 }
+
+variable "uploading_service_role" {
+  type        = string
+  description = "Role of the service that will upload videos"
+  default     = ""
+}

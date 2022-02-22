@@ -25,3 +25,11 @@ module "video-cdn" {
   default_ttl            = "604800" //7 days
   forward_header_values  = []
 }
+
+resource "aws_s3_bucket_public_access_block" "video-cdn" {
+  bucket                  = module.video-cdn
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}

@@ -1,7 +1,7 @@
 name: terraform-video-converter
 gitlab_repo: miquido/terraform/terraform-video-converter
-badges: []
-related: []
+badges: [ ]
+related: [ ]
 description: |-
   A solution that will generate adaptive streaming urls for videos uploaded to video-source bucket.
   After conversion, videos will be available under
@@ -24,12 +24,18 @@ usage: |-
       stage               = var.environment
       namespace           = var.aws_project_name
 
-      aws_region          = "us-east-1"
-      aws_used_account_no = "134446265017"
+      aws_region             = "us-east-1"
+      aws_used_account_no    = "134446265017"
+      // example of ECS task that uploads videos
+      uploading_service_role = module.ecs-alb-task-main-api.task_role_name 
 
-      mediaconvert-endpoint                 = "https://yk2lhke4b.mediaconvert.eu-central-1.amazonaws.com"
-      submit-lambda-notification-webhook    = "https://cf74a368e3b9e2b4c8fbcfeee8770dde.m.pipedream.net"
-      complete-lambda-notification-webhook  = "https://cf74a368e3b9e2b4c8fbcfeee8770dde.m.pipedream.net"
+      // unique endpoint from your account
+      mediaconvert-endpoint                 = "https://yk2lhke4b.mediaconvert.eu-central-1.amazonaws.com" 
+      // sends error when can't create conversion job
+      submit-lambda-notification-webhook    = "https://your-api/job-errors" 
+      // sends completed job details or error object
+      complete-lambda-notification-webhook  = "https://your-api/completed-videos" 
+      notification-webhook-auth-header      = "Api-key mytoken"
     }
   ```
 
