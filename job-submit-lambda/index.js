@@ -29,8 +29,8 @@ exports.handler = async (event,context) => {
         const inputPath = `s3://${srcBucket}/${srcVideo}`;
         const outputPath = `s3://${DESTINATION_BUCKET}/${srcVideo}`;
         const metaData = {
-            Guid: guid,
-            Filename: filename
+            guid: guid,
+            filename: filename
         };
         /**
          * download and validate settings

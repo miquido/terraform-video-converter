@@ -14,30 +14,50 @@ modifiying video-source/converter-config-1/job-settings.json file.
 
 Files should be uploaded to video-source/converter-config-1 and only .mp4, .mpg, .m4v, .mov, .m2ts
 are supported (case sensitive)
+
+
+Most useful fields from 'Complete lambda' notification will be probably:
+```
+event.detail.userMetadata.guid,
+event.detail.userMetadata.filename,
+event.detail.status,
+```
+<b>Important</b><br>
+The solution assumes that a video file will be uploaded into `...video-source` bucket with a path format:<br>
+`config-name/guid/.../filename`<br>
+Where `guid` in the path is `guid` in the notification. For example:<br>
+`myVideoConfig/user1/video2` or <br>
+`converter-config-1/7269c6d9-7884-4458-9f70-f142f6879a18/feed/video/28cc892d-0118-4c4c-957e-78aa39462e92`<br>
 ---
 **Terraform Module**
 ## Usage
 
 ```hcl
-  module "video-streaming" {
-    source              = "git::ssh://git@gitlab.com/miquido/terraform/terraform-video-converter"
-    name                = "video-streaming"
-    stage               = var.environment
-    namespace           = var.aws_project_name
+module "adaptive-video" {
+  source    = "git::ssh://git@gitlab.com/miquido/terraform/terraform-video-converter.git?ref=tags/..."
+  name      = "adaptive-video"
+  stage     = var.environment
+  namespace = var.project
 
-    aws_region             = "us-east-1"
-    aws_used_account_no    = "134446265017"
-    // example of ECS task that uploads videos
-    uploading_service_role = module.ecs-alb-task-main-api.task_role_name 
+  aws_region          = var.aws_region
+  aws_used_account_no = var.aws_used_account_no
 
-    // unique endpoint from your account
-    mediaconvert-endpoint                 = "https://yk2lhke4b.mediaconvert.eu-central-1.amazonaws.com" 
-    // sends error when can't create conversion job
-    submit-lambda-notification-webhook    = "https://your-api/job-errors" 
-    // sends completed job details or error object
-    complete-lambda-notification-webhook  = "https://your-api/completed-videos" 
-    notification-webhook-auth-header      = "Api-key mytoken"
-  }
+  dns_alias_enabled   = true
+  dns_alias_name      = local.videos_domain
+  parent_zone_id      = aws_route53_zone.primary.zone_id
+  acm_certificate_arn = local.cdn_acm_certificate_arn
+
+  // ECS task that uploads videos
+  uploading_service_role = module.ecs-alb-task-main-api.task_role_name
+
+  // unique endpoint from your account
+  mediaconvert-endpoint                = "https://xxxxxxxx.mediaconvert.us-east-1.amazonaws.com"
+  // sends error when can't create conversion job
+  submit-lambda-notification-webhook    = "https://${local.main_api_domain}/submit"
+  // sends completed job details or error object
+  complete-lambda-notification-webhook  = "https://${local.main_api_domain}/complete"
+  notification-webhook-auth-header     = "Api-Key ${data.aws_ssm_parameter.main-api_JOBS_API_KEY.value}"
+}
 ```
 <!-- markdownlint-disable -->
 ## Makefile Targets
