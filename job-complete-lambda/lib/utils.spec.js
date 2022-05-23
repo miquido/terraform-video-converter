@@ -109,7 +109,7 @@ describe("Utils ProcessOutputs", () => {
         },
       };
     });
-    await utils.processJobDetails(
+    await utils.getJobDetails(
       "endpoint",
       "cloudfrontUrl",
       test.cwComplete,
@@ -127,7 +127,7 @@ describe("Utils ProcessOutputs", () => {
       };
     });
     await utils
-      .processJobDetails("endpoint", "cloudfrontUrl", test.cwComplete)
+      .getJobDetails("endpoint", "cloudfrontUrl", test.cwComplete)
       .catch((err) => {
         expect(err.toString()).toEqual("GET JOB FAILED");
       });

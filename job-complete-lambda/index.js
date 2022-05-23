@@ -24,8 +24,14 @@ exports.handler = async (event) => {
                     /**
                      * get the mediaconvert job details and parse the event outputs
                      */
-                    const jobDetails = await utils.processJobDetails(MEDIACONVERT_ENDPOINT,CLOUDFRONT_DOMAIN,event);
-                    await utils.sendNotification(NOTIFICATION_WEBHOOK, jobDetails);
+                    const jobDetails = await utils.getJobDetails(MEDIACONVERT_ENDPOINT,CLOUDFRONT_DOMAIN,event);
+                    const urls = utils.getCloudFrontUrls(CLOUDFRONT_DOMAIN, event)
+                    const notification = {
+                      event: event,
+                      jobDetails : jobDetails,
+                      cfUrls : urls,
+                    }
+                    await utils.sendNotification(NOTIFICATION_WEBHOOK, notification);
                     await utils.deleteSourceFile(jobDetails.Job.Settings.Inputs[0].FileInput);
                 } catch (err) {
                     throw err;
@@ -34,7 +40,10 @@ exports.handler = async (event) => {
             case 'CANCELED':
             case 'ERROR':
                 try {
-                    await utils.sendNotification(NOTIFICATION_WEBHOOK, event);
+                    const notification = {
+                      event: event,
+                    }
+                    await utils.sendNotification(NOTIFICATION_WEBHOOK, notification);
                 } catch (err) {
                     throw err;
                 }
