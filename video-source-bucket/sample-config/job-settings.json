@@ -718,6 +718,13 @@
             "TimedMetadataId3Period": 10,
             "CaptionLanguageSetting": "OMIT",
             "Destination": "s3://destinationbucket/guid/filename/hls/",
+            "DestinationSettings": {
+              "S3Settings": {
+                "Encryption": {
+                  "EncryptionType": "SERVER_SIDE_ENCRYPTION_S3"
+                }
+              }
+            },
             "TimedMetadataId3Frame": "PRIV",
             "CodecSpecification": "RFC_4281",
             "OutputSelection": "MANIFESTS_AND_SEGMENTS",
@@ -754,7 +761,14 @@
         "OutputGroupSettings": {
           "Type": "FILE_GROUP_SETTINGS",
           "FileGroupSettings": {
-            "Destination": "s3://destinationbucket/guid/filename/thumbnail"
+            "Destination": "s3://destinationbucket/guid/filename/thumbnail",
+            "DestinationSettings": {
+              "S3Settings": {
+                "Encryption": {
+                  "EncryptionType": "SERVER_SIDE_ENCRYPTION_S3"
+                }
+              }
+            }
           }
         }
       }
