@@ -107,7 +107,14 @@
         "OutputGroupSettings": {
           "Type": "FILE_GROUP_SETTINGS",
           "FileGroupSettings": {
-            "Destination": "s3://destinationbucket/guid/mp4/"
+            "Destination": "s3://destinationbucket/guid/mp4/",
+            "DestinationSettings": {
+              "S3Settings": {
+                "Encryption": {
+                  "EncryptionType": "SERVER_SIDE_ENCRYPTION_S3"
+                }
+              }
+            }
           }
         }
       },
