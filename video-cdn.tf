@@ -12,24 +12,18 @@ module "video-cdn" {
   parent_zone_id      = var.parent_zone_id
   acm_certificate_arn = var.acm_certificate_arn
 
-  allowed_methods        = ["GET", "HEAD"]
-  encryption_enabled     = true
-  price_class            = var.cloudfront_price_class
-  viewer_protocol_policy = "redirect-to-https"
-  origin_force_destroy   = true
-  compress               = true
-  website_enabled        = false
-  forward_query_string   = false
-  forward_cookies        = "none"
-  min_ttl                = "604800" //7 days
-  default_ttl            = "604800" //7 days
-  forward_header_values  = []
-}
-
-resource "aws_s3_bucket_public_access_block" "video-cdn" {
-  bucket                  = module.video-cdn
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
+  allowed_methods                    = ["GET", "HEAD"]
+  encryption_enabled                 = true
+  price_class                        = var.cloudfront_price_class
+  viewer_protocol_policy             = "redirect-to-https"
+  origin_force_destroy               = true
+  compress                           = true
+  website_enabled                    = false
+  forward_query_string               = false
+  forward_cookies                    = "none"
+  min_ttl                            = "604800" //7 days
+  default_ttl                        = "604800" //7 days
+  forward_header_values              = []
+  block_origin_public_access_enabled = true
+  trusted_key_groups                 = [var.trusted_key_group] //for Signed URL's
 }

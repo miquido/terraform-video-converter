@@ -56,6 +56,9 @@ usage: |-
     // sends completed job details or error object
     complete-lambda-notification-webhook  = "https://${local.main_api_domain}/complete"
     notification-webhook-auth-header     = "Api-Key ${data.aws_ssm_parameter.main-api_JOBS_API_KEY.value}"
+
+    // optional - for signed urls on CF
+    trusted_key_group = aws_cloudfront_key_group.cf_keygroup.id
   }
   ```
 

@@ -98,3 +98,9 @@ variable "uploading_service_role" {
   description = "Role of the service that will upload videos"
   default     = ""
 }
+
+variable "trusted_key_group" {
+  type        = string
+  description = "Optional parameter to set CF trusted_key_groups, used for signed urls on CF"
+  default     = ""
+}

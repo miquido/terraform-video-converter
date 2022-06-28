@@ -4,12 +4,16 @@ module "video-source" {
   namespace = module.label.namespace
   tags      = module.label.tags
 
-  source             = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=0.47.0"
-  enabled            = true
-  user_enabled       = false
-  versioning_enabled = true
-  acl                = "private"
-  sse_algorithm      = "AES256"
+  source                  = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=0.47.0"
+  enabled                 = true
+  user_enabled            = false
+  versioning_enabled      = true
+  acl                     = "private"
+  sse_algorithm           = "AES256"
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_object" "converter-config" {
@@ -32,14 +36,6 @@ resource "aws_s3_bucket_notification" "new_video" {
     filter_prefix       = ""
     filter_suffix       = ""
   }
-}
-
-resource "aws_s3_bucket_public_access_block" "video-source" {
-  bucket                  = module.video-source
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
 }
 
 data "aws_iam_policy_document" "video-s3-iam-policy-user" {
