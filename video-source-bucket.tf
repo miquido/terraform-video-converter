@@ -1,10 +1,14 @@
+locals {
+  video_source_bucked_name = "video-source"
+}
+
 module "video-source" {
-  name      = "video-source"
+  name      = local.video_source_bucked_name
   stage     = module.label.stage
   namespace = module.label.namespace
   tags      = module.label.tags
 
-  source                  = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=0.47.0"
+  source                  = "git::https://github.com/cloudposse/terraform-aws-s3-bucket.git?ref=1.0.0"
   enabled                 = true
   user_enabled            = false
   versioning_enabled      = true
@@ -52,8 +56,8 @@ data "aws_iam_policy_document" "video-s3-iam-policy-user" {
     ]
 
     resources = [
-      "arn:aws:s3:::${module.video-source}/*",
-      "arn:aws:s3:::${module.video-source}",
+      "arn:aws:s3:::${local.video_source_bucked_name}/*",
+      "arn:aws:s3:::${local.video_source_bucked_name}",
     ]
   }
 }
