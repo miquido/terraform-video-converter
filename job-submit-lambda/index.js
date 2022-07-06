@@ -44,7 +44,7 @@ exports.handler = async (event,context) => {
          * Submit Job
          */
         await utils.createJob(job,MEDIACONVERT_ENDPOINT);
-
+        await utils.sendNotification(NOTIFICATION_WEBHOOK, metaData);
     } catch (err) {
         /**
          * Send SNS error message
