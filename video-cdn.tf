@@ -28,4 +28,6 @@ module "video-cdn" {
   block_origin_public_access_enabled = true
   trusted_key_groups                 = [var.trusted_key_group] //for Signed URL's
   response_headers_policy_id         = var.response_headers_policy_id
+  cache_policy_id                    = var.cache_policy_id
+  origin_request_policy_id           = var.origin_request_policy_id
 }

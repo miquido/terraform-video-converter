@@ -122,3 +122,21 @@ variable "response_headers_policy_id" {
   description = "The identifier for a response headers policy"
   default     = ""
 }
+
+variable "cache_policy_id" {
+  type        = string
+  default     = null
+  description = <<-EOT
+    The unique identifier of the existing cache policy to attach to the default cache behavior.
+    If not provided, this module will add a default cache policy using other provided inputs.
+    EOT
+}
+
+variable "origin_request_policy_id" {
+  type        = string
+  default     = null
+  description = <<-EOT
+    The unique identifier of the origin request policy that is attached to the behavior.
+    Should be used in conjunction with `cache_policy_id`.
+    EOT
+}
