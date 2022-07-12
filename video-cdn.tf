@@ -12,7 +12,8 @@ module "video-cdn" {
   parent_zone_id      = var.parent_zone_id
   acm_certificate_arn = var.acm_certificate_arn
 
-  allowed_methods                    = ["GET", "HEAD"]
+  allowed_methods                    = [var.allowed_methods]
+  cached_methods                     = [var.cached_methods]
   encryption_enabled                 = true
   price_class                        = var.cloudfront_price_class
   viewer_protocol_policy             = "redirect-to-https"
@@ -26,4 +27,5 @@ module "video-cdn" {
   forward_header_values              = []
   block_origin_public_access_enabled = true
   trusted_key_groups                 = [var.trusted_key_group] //for Signed URL's
+  response_headers_policy_id         = [var.response_headers_policy_id]
 }

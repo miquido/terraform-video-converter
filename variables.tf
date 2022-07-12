@@ -104,3 +104,21 @@ variable "trusted_key_group" {
   description = "Optional parameter to set CF trusted_key_groups, used for signed urls on CF"
   default     = ""
 }
+
+variable "allowed_methods" {
+  type        = list(string)
+  description = "List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront"
+  default     = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+}
+
+variable "cached_methods" {
+  type        = list(string)
+  description = "List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD)"
+  default     = ["GET", "HEAD"]
+}
+
+variable "response_headers_policy_id" {
+  type        = string
+  description = "The identifier for a response headers policy"
+  default     = ""
+}
