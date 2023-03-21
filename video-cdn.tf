@@ -30,4 +30,5 @@ module "video-cdn" {
   response_headers_policy_id         = var.response_headers_policy_id
   cache_policy_id                    = var.cache_policy_id
   origin_request_policy_id           = var.origin_request_policy_id
+  additional_bucket_policy           = var.additional_bucket_policy
 }

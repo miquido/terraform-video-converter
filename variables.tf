@@ -140,3 +140,12 @@ variable "origin_request_policy_id" {
     Should be used in conjunction with `cache_policy_id`.
     EOT
 }
+
+variable "additional_bucket_policy" {
+  type        = string
+  default     = "{}"
+  description = <<-EOT
+    Additional policies for the bucket. If included in the policies, the variables `$${bucket_name}`, `$${origin_path}` and `$${cloudfront_origin_access_identity_iam_arn}` will be substituted.
+    It is also possible to override the default policy statements by providing statements with `S3GetObjectForCloudFront` and `S3ListBucketForCloudFront` sid.
+    EOT
+}
