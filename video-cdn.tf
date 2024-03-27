@@ -1,5 +1,5 @@
 module "video-cdn" {
-  source = "git::https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn.git?ref=0.85.0"
+  source = "git::https://github.com/cloudposse/terraform-aws-cloudfront-s3-cdn.git?ref=0.94.0"
 
   name                    = "video"
   namespace               = module.label.namespace
